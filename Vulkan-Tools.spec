@@ -4,7 +4,7 @@
 #
 Name     : Vulkan-Tools
 Version  : 1.1.82.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/KhronosGroup/Vulkan-Tools/archive/sdk-1.1.82.0.tar.gz
 Source0  : https://github.com/KhronosGroup/Vulkan-Tools/archive/sdk-1.1.82.0.tar.gz
 Summary  : No detailed summary available
