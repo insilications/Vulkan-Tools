@@ -1,0 +1,7 @@
+# This file contains recursive sources that require this package
+cmake
+gst-plugins-bad
+mesa
+mxnet
+qtbase
+qttools
