@@ -1,5 +1,7 @@
 # This file contains recursive sources that require this package
+Vulkan-Tools
 cmake
+glfw
 gst-plugins-bad
 mesa
 mxnet

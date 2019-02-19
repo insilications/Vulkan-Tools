@@ -5,4 +5,3 @@ libm.so.6
 libstdc++.so.6
 libvulkan.so.1
 libwayland-client.so.0
-libxcb.so.1
