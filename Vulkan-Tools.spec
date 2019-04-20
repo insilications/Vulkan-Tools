@@ -4,7 +4,7 @@
 #
 Name     : Vulkan-Tools
 Version  : 1.1.106
-Release  : 8
+Release  : 9
 URL      : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.1.106/Vulkan-Tools-1.1.106.tar.gz
 Source0  : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.1.106/Vulkan-Tools-1.1.106.tar.gz
 Summary  : Vulkan Utilities and Tools
