@@ -2,7 +2,6 @@
 Vulkan-Tools
 Vulkan-ValidationLayers
 cmake
-glfw
 gst-plugins-bad
 mesa
 mxnet
