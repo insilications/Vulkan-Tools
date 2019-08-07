@@ -4,10 +4,10 @@
 #
 Name     : Vulkan-Tools
 Version  : 1.1.114
-Release  : 14
+Release  : 15
 URL      : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.1.114/Vulkan-Tools-1.1.114.tar.gz
 Source0  : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.1.114/Vulkan-Tools-1.1.114.tar.gz
-Summary  : Vulkan Utilities and Tools
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: Vulkan-Tools-bin = %{version}-%{release}
@@ -30,14 +30,11 @@ BuildRequires : pkgconfig(wayland-egl)
 BuildRequires : pkgconfig(wayland-server)
 BuildRequires : pkgconfig(x11-xcb)
 BuildRequires : python3
+Patch1: build-with-1.1.117-vulkan-header.patch
 
 %description
-## Windows Runtime Installer
-This directory contains the files required for building the Windows Vulkan Runtime Installer package.
-The runtime installer is a method of delivering a Vulkan loader to system.
-The runtime installer is used by the SDK installer.
-It is also used by some drivers to ensure that an adequate Vulkan loader is installed on a system.
-Additionally, applications may install a runtime to ensure that a minimum loader version is present.
+# Vulkan Ecosystem Components
+This project provides Khronos official Vulkan Tools and Utilities for Windows, Linux, Android, and MacOS.
 
 %package bin
 Summary: bin components for the Vulkan-Tools package.
@@ -58,13 +55,14 @@ license components for the Vulkan-Tools package.
 
 %prep
 %setup -q -n Vulkan-Tools-1.1.114
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1563424842
+export SOURCE_DATE_EPOCH=1565161657
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -81,7 +79,7 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1563424842
+export SOURCE_DATE_EPOCH=1565161657
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/Vulkan-Tools
 cp LICENSE.txt %{buildroot}/usr/share/package-licenses/Vulkan-Tools/LICENSE.txt
