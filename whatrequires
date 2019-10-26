@@ -3,6 +3,7 @@ Vulkan-Tools
 Vulkan-ValidationLayers
 cmake
 gst-plugins-bad
+librealsense
 mesa
 mxnet
 qtbase
