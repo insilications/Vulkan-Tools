@@ -4,10 +4,10 @@
 #
 Name     : Vulkan-Tools
 Version  : 1.1.126
-Release  : 19
+Release  : 22
 URL      : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.1.126/Vulkan-Tools-1.1.126.tar.gz
 Source0  : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.1.126/Vulkan-Tools-1.1.126.tar.gz
-Summary  : Vulkan Utilities and Tools
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Apache-2.0 MIT
 Requires: Vulkan-Tools-bin = %{version}-%{release}
@@ -33,14 +33,11 @@ BuildRequires : pkgconfig(wayland-server)
 BuildRequires : pkgconfig(x11-xcb)
 BuildRequires : python3
 BuildRequires : util-linux
+Patch1: 0001-vulkaninfo-return-properly-on-xcb-onnection-errors.patch
 
 %description
-## Windows Runtime Installer
-This directory contains the files required for building the Windows Vulkan Runtime Installer package.
-The runtime installer is a method of delivering a Vulkan loader to system.
-The runtime installer is used by the SDK installer.
-It is also used by some drivers to ensure that an adequate Vulkan loader is installed on a system.
-Additionally, applications may install a runtime to ensure that a minimum loader version is present.
+# Vulkan Ecosystem Components
+This project provides Khronos official Vulkan Tools and Utilities for Windows, Linux, Android, and MacOS.
 
 %package bin
 Summary: bin components for the Vulkan-Tools package.
@@ -61,16 +58,17 @@ license components for the Vulkan-Tools package.
 
 %prep
 %setup -q -n Vulkan-Tools-1.1.126
+cd %{_builddir}/Vulkan-Tools-1.1.126
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1572109040
+export SOURCE_DATE_EPOCH=1573778402
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -85,7 +83,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1572109040
+export SOURCE_DATE_EPOCH=1573778402
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/Vulkan-Tools
 cp %{_builddir}/Vulkan-Tools-1.1.126/LICENSE.txt %{buildroot}/usr/share/package-licenses/Vulkan-Tools/2b8b815229aa8a61e483fb4ba0588b8b6c491890

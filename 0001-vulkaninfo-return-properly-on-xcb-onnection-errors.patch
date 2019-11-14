@@ -1,0 +1,42 @@
+From 9d082a7a81193d09f53ea828ffb3f55f708c9bcd Mon Sep 17 00:00:00 2001
+From: Daniel Charles <daniel.charles@intel.com>
+Date: Wed, 13 Nov 2019 15:54:08 -0800
+Subject: [PATCH] vulkaninfo: return properly on xcb onnection errors
+
+Calling xcb_disconnect on the connection to release memory and
+return.
+
+Otherwise on a headless display with no X11 backend the nullptr
+for the connection will cause segmentation fault on following
+xcb calls when xcb_connection_has_error returns a code.
+
+examples ran on headless displays
+
+DISPLAY=:0 vulkaninfo returns XCB_CONN_ERROR
+DISPLAY=foobar vulkaninfo returns XCB_CONN_CLOSED_PARSE_ERR
+
+v2:restore xcb_connection=nullptr as other xcb calls need it when
+error happened.
+
+Signed-off-by: Daniel Charles <daniel.charles@intel.com>
+---
+ vulkaninfo/vulkaninfo.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/vulkaninfo/vulkaninfo.h b/vulkaninfo/vulkaninfo.h
+index bfa8d0e0..060ef2ce 100644
+--- a/vulkaninfo/vulkaninfo.h
++++ b/vulkaninfo/vulkaninfo.h
+@@ -503,7 +503,9 @@ static void AppCreateXcbWindow(AppInstance &inst) {
+     if (conn_error) {
+         fprintf(stderr, "XCB failed to connect to the X server due to error:%d.\n", conn_error);
+         fflush(stderr);
++        xcb_disconnect(inst.xcb_connection);
+         inst.xcb_connection = nullptr;
++        return;
+     }
+ 
+     setup = xcb_get_setup(inst.xcb_connection);
+-- 
+2.21.0
+
