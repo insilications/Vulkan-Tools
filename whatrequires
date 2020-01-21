@@ -1,6 +1,5 @@
 # This file contains recursive sources that require this package
 Vulkan-Tools
-Vulkan-ValidationLayers
 cmake
 gst-plugins-bad
 librealsense
