@@ -4,7 +4,7 @@
 #
 Name     : Vulkan-Tools
 Version  : 1.2.133
-Release  : 26
+Release  : 27
 URL      : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.2.133/Vulkan-Tools-1.2.133.tar.gz
 Source0  : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.2.133/Vulkan-Tools-1.2.133.tar.gz
 Summary  : Vulkan Utilities and Tools
@@ -17,13 +17,11 @@ BuildRequires : Vulkan-Headers-dev
 BuildRequires : Vulkan-Headers-dev Vulkan-Loader-dev Vulkan-Tools
 BuildRequires : Vulkan-Loader-dev
 BuildRequires : buildreq-cmake
-BuildRequires : buildreq-mvn
 BuildRequires : buildreq-qmake
 BuildRequires : extra-cmake-modules pkgconfig(wayland-client)
 BuildRequires : extra-cmake-modules pkgconfig(xcb) xcb-util-cursor-dev xcb-util-image-dev xcb-util-keysyms-dev xcb-util-renderutil-dev xcb-util-wm-dev xcb-util-dev
 BuildRequires : glslang-bin
 BuildRequires : glslang-dev
-BuildRequires : gradle
 BuildRequires : libX11-dev libICE-dev libSM-dev libXau-dev libXcomposite-dev libXcursor-dev libXdamage-dev libXdmcp-dev libXext-dev libXfixes-dev libXft-dev libXi-dev libXinerama-dev libXi-dev libXmu-dev libXpm-dev libXrandr-dev libXrender-dev libXres-dev libXScrnSaver-dev libXt-dev libXtst-dev libXv-dev libXxf86misc-dev libXxf86vm-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(wayland-client)
@@ -34,12 +32,8 @@ BuildRequires : pkgconfig(x11-xcb)
 BuildRequires : python3
 
 %description
-## Windows Runtime Installer
-This directory contains the files required for building the Windows Vulkan Runtime Installer package.
-The runtime installer is a method of delivering a Vulkan loader to system.
-The runtime installer is used by the SDK installer.
-It is also used by some drivers to ensure that an adequate Vulkan loader is installed on a system.
-Additionally, applications may install a runtime to ensure that a minimum loader version is present.
+# Vulkan Ecosystem Components
+This project provides Khronos official Vulkan Tools and Utilities for Windows, Linux, Android, and MacOS.
 
 %package bin
 Summary: bin components for the Vulkan-Tools package.
@@ -67,10 +61,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582088792
+export SOURCE_DATE_EPOCH=1582844286
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -85,10 +78,11 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1582088792
+export SOURCE_DATE_EPOCH=1582844286
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/Vulkan-Tools
 cp %{_builddir}/Vulkan-Tools-1.2.133/LICENSE.txt %{buildroot}/usr/share/package-licenses/Vulkan-Tools/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+cp %{_builddir}/Vulkan-Tools-1.2.133/windows-runtime-installer/VulkanRT-License.txt %{buildroot}/usr/share/package-licenses/Vulkan-Tools/884fc355c7334e66b002ff40965b6f9904805d0e
 pushd clr-build
 %make_install
 popd
@@ -105,3 +99,4 @@ popd
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/Vulkan-Tools/2b8b815229aa8a61e483fb4ba0588b8b6c491890
+/usr/share/package-licenses/Vulkan-Tools/884fc355c7334e66b002ff40965b6f9904805d0e
