@@ -1,5 +1,5 @@
 PKG_NAME := Vulkan-Tools
-URL = https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.2.133/Vulkan-Tools-1.2.133.tar.gz
+URL = https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.2.135/Vulkan-Tools-1.2.135.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
