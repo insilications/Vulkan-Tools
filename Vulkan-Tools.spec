@@ -4,7 +4,7 @@
 #
 Name     : Vulkan-Tools
 Version  : 1.2.137
-Release  : 29
+Release  : 30
 URL      : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.2.137/Vulkan-Tools-1.2.137.tar.gz
 Source0  : https://github.com/KhronosGroup/Vulkan-Tools/archive/v1.2.137/Vulkan-Tools-1.2.137.tar.gz
 Summary  : No detailed summary available
@@ -30,6 +30,7 @@ BuildRequires : pkgconfig(wayland-egl)
 BuildRequires : pkgconfig(wayland-server)
 BuildRequires : pkgconfig(x11-xcb)
 BuildRequires : python3
+Patch1: backport-range-size.patch
 
 %description
 # Vulkan Ecosystem Components
@@ -55,13 +56,14 @@ license components for the Vulkan-Tools package.
 %prep
 %setup -q -n Vulkan-Tools-1.2.137
 cd %{_builddir}/Vulkan-Tools-1.2.137
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1586876921
+export SOURCE_DATE_EPOCH=1589205993
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -78,7 +80,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1586876921
+export SOURCE_DATE_EPOCH=1589205993
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/Vulkan-Tools
 cp %{_builddir}/Vulkan-Tools-1.2.137/LICENSE.txt %{buildroot}/usr/share/package-licenses/Vulkan-Tools/2b8b815229aa8a61e483fb4ba0588b8b6c491890
